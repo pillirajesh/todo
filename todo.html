@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <style>
+      .background-container {
+        height: 100vh;
+        min-width: 767px;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .todo-container {
+        width: 767px;
+        width: 40%;
+        height: 80vh;
+        border-radius: 7px;
+        background-color: #dacbcb;
+        padding-left: 30px;
+        padding-right: 50px;
+      }
+
+      .heading {
+        text-align: center;
+        color: blueviolet;
+      }
+
+      .unordered-todo-list {
+        margin-top: 30px;
+        padding-left: 0px;
+      }
+
+      .todo-list {
+        list-style-type: none;
+      }
+
+      .input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #000;
+        width: 60%;
+        height: 25px;
+        outline: none;
+        background-color: transparent;
+        font-family: "roboto";
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .button {
+        background-color: blue;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: "roboto";
+        font-weight: 600;
+        color: #fff;
+        padding: 7px;
+        height: 45px;
+        width: 70px;
+        margin-left: 20px;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .edit-button {
+        background-color: yellow;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: "roboto";
+        font-weight: 600;
+        color: #fff;
+        padding: 7px;
+        height: 30px;
+        width: 70px;
+        margin-left: 20px;
+      }
+
+      .delete-button {
+        background-color: red;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: "roboto";
+        font-weight: 600;
+        color: #fff;
+        padding: 7px;
+        height: 30px;
+        width: 70px;
+        margin-left: 20px;
+      }
+
+      .list-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background-color: azure;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        height: 30px;
+        padding: 10px;
+      }
+
+      .check-box {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .check-button {
+        border: none;
+        background-color: transparent;
+      }
+
+      .strike {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-container">
+      <div class="todo-container">
+        <h1 class="heading">Todo List</h1>
+        <div class="button-container">
+          <input type="text" class="input" placeholder="Add Todo" />
+          <br />
+          <button type="button" id="button" class="button">Add Todo</button>
+        </div>
+        <ul class="unordered-todo-list"></ul>
+      </div>
+    </div>
+    <script>
+      const button = document.getElementById("button");
+
+      const addTodo = function () {
+        const inputValue = document.querySelector(".input");
+        const editButton = document.createElement("button");
+        const deleteButton = document.createElement("button");
+        const unorderedList = document.querySelector(".unordered-todo-list");
+        const checkBox = document.createElement("input");
+        checkBox.type = "checkbox";
+
+        const listItem = document.createElement("li");
+        const listContainer = document.createElement("div");
+
+        const editButtonContainer = document.createElement("div");
+        const checkBoxContainer = document.createElement("div");
+        const checkButton = document.createElement("button");
+        checkButton.classList.add("check-button");
+        checkBoxContainer.classList.add("check-box");
+        listContainer.classList.add("list-container");
+
+        editButton.classList.add("edit-button");
+        editButton.textContent = "Edit";
+
+        deleteButton.classList.add("delete-button");
+        deleteButton.textContent = "Delete";
+
+        listItem.classList.add("todo-list");
+        listItem.textContent = inputValue.value;
+        checkButton.append(checkBox);
+        checkBoxContainer.append(checkButton);
+        checkBoxContainer.append(listItem);
+
+        editButtonContainer.append(editButton);
+        editButtonContainer.append(deleteButton);
+        listContainer.append(checkBoxContainer);
+        listContainer.append(editButtonContainer);
+
+        unorderedList.append(listContainer);
+
+        inputValue.value = "";
+        deleteButton.addEventListener("click", function () {
+          unorderedList.removeChild(listContainer);
+        });
+
+        editButton.addEventListener("click", function () {
+          inputValue.value = listItem.textContent;
+          unorderedList.removeChild(listContainer);
+        });
+        checkButton.addEventListener("click", function () {
+          listItem.classList.toggle("strike");
+        });
+      };
+      button.addEventListener("click", addTodo);
+    </script>
+  </body>
+</html>
